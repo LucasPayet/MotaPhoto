@@ -2,6 +2,7 @@
 function enqueue_custom_styles() {
     wp_enqueue_style( 'motaphototheme-style', get_template_directory_uri() . '/style.css', array());
     wp_enqueue_script('scripts', get_template_directory_uri() . '/js/scripts.js');
+    wp_enqueue_script("jquery");
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
 

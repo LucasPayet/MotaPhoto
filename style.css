@@ -39,7 +39,12 @@ MotaPhoto is distributed under the terms of the GNU GPL.
 
 body{
     margin: 0;
-    height: 100vh;
+    height: 100%;
+    /* min-height: 100vh; */
+}
+
+body{
+    position: relative;
 }
 
 *{
@@ -47,7 +52,8 @@ body{
     list-style: none;
     color: black;
     box-sizing: border-box;
-    overflow: hidden;
+    margin: 0;
+    /* overflow: hidden; */
 }
 
 .hide{
@@ -60,11 +66,28 @@ body{
     margin: auto;
 }
 
+.btn-style-no{
+    border: none;
+}
+
+.align-c{
+    display: flex;
+    justify-content: center;
+}
+
+.max-w{
+    width: 100%;
+    max-width: 1148px;
+}
+
+.font-SpaceMono *{
+    font-family: 'Space Mono';
+}
+
 /*Header and menu*/
 header{
-    padding-inline: 146px;
+    /* padding-inline: 146px; */
     box-shadow: 0px 4px 14px 10px #ad2e2e08;
-
 }
 
 #header-menu{
@@ -98,9 +121,98 @@ header{
     max-width: 216px;
 }
 
+/* album single post */
+.grid-section{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 8px 21px;
+}
+/* .grid-section *{
+    align-self: end;
+} */
+
+.post-info{
+    align-self: end;
+    padding-bottom: 27px;
+    /* font-family: 'Space Mono'; */
+}
+
+.post-title{
+    font-size: 66px;
+    line-height: 53px;
+    font-style: italic;
+}
+
+.taxonomy{
+    padding-bottom: 37px;
+    border-bottom: 1px black solid;
+}
+
+.taxonomy p{
+    font-size: 14px;
+    line-height: 20.73px;
+    margin-top: 20px;
+}
+
+    /*featured image*/
+.featured-image{
+    display: grid;
+}
+.featured-image > img{
+    padding-bottom: 27px;
+}
+
+.grid-post{
+    display: grid;
+}
+
+.flex-wrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.h-118{
+    height: 118px;
+}
+
+.grid-post-nav{
+    width: 81px;
+    justify-self: right;
+    display: grid;
+    /* grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr; */
+    grid-template-areas:
+                        "img img" 
+                        "p n";
+}
+.grid-post-nav img{
+    grid-area: img;
+}
+.grid-post-nav #previous-post{
+    grid-area: p;
+}
+.grid-post-nav #next-post{
+    grid-area: n;
+    justify-self: right;
+}
+
+.title-interest{
+    font-family: 'Poppins';
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: 300;
+}
+
+.contact_ref{
+    width: 272px;
+}
+
 /*Footer*/
 footer{
     position: relative;
+    padding: 7px 0;
 }
 
 footer::before{
@@ -122,6 +234,7 @@ footer::before{
 
 footer .menu{
     width: 100%;
+    max-width: 620px;
     justify-content: space-between;
 }
 
@@ -131,13 +244,13 @@ footer .menu{
     top: 0;
     left: 0;
     z-index: 999;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background: rgba(0,0,0,.60);
 }
 
 .contact-box{
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -148,6 +261,7 @@ footer .menu{
     padding: 18px 0 36px 0;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
 }
 
 .contact-box form{
@@ -157,6 +271,7 @@ footer .menu{
 
 .contact-box p{
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -187,3 +302,10 @@ footer .menu{
     color: #ffff;
     background: #000000!important;
 }
+
+/*single Album*/
+/* 
+.post-section{
+    display: grid;
+    grid-template-columns: minmax();
+} */

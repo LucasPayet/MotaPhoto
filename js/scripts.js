@@ -12,5 +12,12 @@ window.addEventListener('click', (e) => {
         console.log(e);
         contactForm.classList.toggle('hide');
     }
-    
 })
+
+jQuery(document).ready(function($){
+    $("#ContactRef").click(function(){
+        $('.contactForm').toggleClass('hide');
+        var ref = $("#ref").html().replace("Référence : ", "").toUpperCase();
+        $("input#reference").val(ref);
+    });
+});
