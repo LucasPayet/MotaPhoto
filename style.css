@@ -125,6 +125,9 @@ header{
 .grid-section{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-areas:
+    "info img" 
+    "contact post";
     gap: 8px 21px;
 }
 /* .grid-section *{
@@ -132,9 +135,12 @@ header{
 } */
 
 .post-info{
+    grid-area: info;
     align-self: end;
-    padding-bottom: 27px;
     /* font-family: 'Space Mono'; */
+}
+.interested{
+    grid-area: contact;
 }
 
 .post-title{
@@ -156,10 +162,8 @@ header{
 
     /*featured image*/
 .featured-image{
-    display: grid;
-}
-.featured-image > img{
-    padding-bottom: 27px;
+    grid-area: img;
+    display: flex;
 }
 
 .grid-post{
@@ -178,6 +182,7 @@ header{
 }
 
 .grid-post-nav{
+    grid-area: post;
     width: 81px;
     justify-self: right;
     display: grid;
@@ -196,6 +201,15 @@ header{
 .grid-post-nav #next-post{
     grid-area: n;
     justify-self: right;
+}
+
+/*hover show previous post img*/
+.previmg{
+    scale: 0;
+    transition-duration: 0.25s;
+}
+.grid-post-nav .previous-post:hover ~ .previmg{
+    scale: 1;
 }
 
 .title-interest{
@@ -309,3 +323,15 @@ footer .menu{
     display: grid;
     grid-template-columns: minmax();
 } */
+
+/*responsiv*/
+
+@media screen and (max-width: 900px){
+    .grid-section{
+        grid-template-areas:
+        "img"
+        "info" 
+        "contact"
+        "post";
+    }
+}
