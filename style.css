@@ -55,7 +55,9 @@ body{
     margin: 0;
     /* overflow: hidden; */
 }
-
+.upperc{
+    text-transform: uppercase;
+}
 .hide{
     display: none!important;
 }
@@ -68,6 +70,9 @@ body{
 
 .btn-style-no{
     border: none;
+    width: fit-content;
+    height: fit-content;
+    background: none;
 }
 
 .align-c{
@@ -221,6 +226,71 @@ header{
 
 .contact_ref{
     width: 272px;
+}
+
+/*Image showcase*/
+.relativ{
+    position: relative;
+}
+.img-template{
+    width: 564px;
+    height: 485px;
+    object-fit: cover;
+}
+
+/*img overlay*/
+.img-template:hover ~ .overlay{
+    display: grid;
+}
+
+.overlay{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 564px;
+    height: 485px;
+    background: rgba(0, 0, 0, 60%);
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: 
+                        "n n o" 
+                        "x y z" 
+                        "s s s";
+}
+.overlay:hover{
+    display: grid;
+}
+.overlay > a{
+    width: fit-content;
+    height: fit-content;
+}
+.eye{
+    grid-area: y;
+    justify-self: center;
+    align-self: center;
+}
+.s{
+    color: #ffff;
+    grid-area: s;
+    align-self: end;
+    font-size: 14px;
+}
+.s-right{
+    justify-self: start;
+    margin: 0 0 12px 17px;
+    font-family: 'Poppins';
+    font-weight: 500;
+}
+.s-left{
+    justify-self: end;
+    margin: 0 23px 12px 0;
+    font-weight: 400;
+}
+.s-tl{
+    grid-area: o;
+    justify-self: end;
+    margin: 11px 18px 0 0;
 }
 
 /*Footer*/

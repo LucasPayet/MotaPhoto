@@ -13,7 +13,7 @@
 </head>
 <section class="default-container align-c">
     <?php
-    if (!wp_is_mobile()){ ?>
+    //if (!wp_is_mobile()){ ?>
     <header class="max-w">
         <?php 
         if (has_custom_logo()){
@@ -39,6 +39,6 @@
             ?>
         </nav>
     </header>
-    <?php } ?>
+    <?php //} ?>
     
 </section>
