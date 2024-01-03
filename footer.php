@@ -1,6 +1,6 @@
     <?php get_template_part("templates-part/contact") ?>   
-    <footer class="default-container align-c">
-        <nav class="max-w align-c">
+    <footer class="default-container justify-c">
+        <nav class="max-w justify-c">
             <!-- id="footer-menu" -->
             <?php
             // Display the primary menu

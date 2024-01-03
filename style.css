@@ -21,6 +21,12 @@ MotaPhoto is distributed under the terms of the GNU GPL.
 @font-face {
     font-family: 'Space Mono';
     src: url('./fonts/Space Mono/SpaceMono-Regular.ttf') format('truetype');
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Space Mono';
+    src: url('./fonts/Space Mono/SpaceMono-Italic.ttf') format('truetype');
+    font-style: italic;
 }
 
 @font-face {
@@ -68,6 +74,12 @@ body{
     margin: auto;
 }
 
+.txt-c{
+    display: flex!important;
+    align-items: center;
+    justify-content: center;
+}
+
 .btn-style-no{
     border: none;
     width: fit-content;
@@ -75,18 +87,68 @@ body{
     background: none;
 }
 
-.align-c{
+.justify-c{
     display: flex;
     justify-content: center;
+}
+.justify-sb{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.w-100{
+    width: 100%;
 }
 
 .max-w{
     width: 100%;
-    max-width: 1148px;
+    /* max-width: 1148px; */
+}
+
+.margin-a{
+    margin: auto;
 }
 
 .font-SpaceMono *{
     font-family: 'Space Mono';
+}
+
+.top-sep{
+    border-top: 1px#000000 solid;
+}
+
+.stroke{
+    /* fill: transparent;
+    stroke: #fff;
+    stroke-width: 3; */
+    -webkit-text-stroke-color: #fff;
+    -webkit-text-stroke-width: 0.3px;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    /* text-shadow: 0 0 2px #fff; */
+
+    /* text-shadow: 
+        -3px -3px 0 #fff,  
+        3px -3px 0 #fff,
+        -3px 3px 0 #fff,
+        3px 3px 0 #fff; */
+}
+
+.center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.font-hero-h1{
+    color: transparent;
+    font-style: italic;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 142.18px;
 }
 
 /*Header and menu*/
@@ -182,8 +244,8 @@ header{
     align-items: center;
 }
 
-.h-118{
-    height: 118px;
+.h-110{
+    height: 110px;
 }
 
 .grid-post-nav{
@@ -228,13 +290,24 @@ header{
     width: 272px;
 }
 
+/*section VOUS AIMEREZ AUSSI*/
+/*title*/
+#related{
+    padding: 77px 0 55px 0;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26.26px;
+}
+
 /*Image showcase*/
 .relativ{
     position: relative;
 }
 .img-template{
-    width: 564px;
-    height: 485px;
+    display: block;
+    min-width: 317px;
+    max-width: 564px;
+    aspect-ratio: 564/495;
     object-fit: cover;
 }
 
@@ -247,8 +320,10 @@ header{
     position:absolute;
     top: 0;
     left: 0;
-    width: 564px;
-    height: 485px;
+    min-width: 317px;
+    max-width: 564px;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 60%);
     display: none;
     grid-template-columns: repeat(3, 1fr);
@@ -291,6 +366,10 @@ header{
     grid-area: o;
     justify-self: end;
     margin: 11px 18px 0 0;
+}
+/*Toutes les photos*/
+.margin-00{
+    margin: 53px auto 64px auto;
 }
 
 /*Footer*/
@@ -377,6 +456,7 @@ footer .menu{
 }
 
 .submit-btn{
+    display: inline-block;
     height: 50px!important;
     background: #B8BBC2;
     border-radius: 2px!important;
