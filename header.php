@@ -11,7 +11,7 @@
         }
     </style>
 </head>
-<section class="default-container align-c">
+<section class="default-container justify-c">
     <?php
     //if (!wp_is_mobile()){ ?>
     <header class="max-w">

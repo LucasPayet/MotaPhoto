@@ -1,8 +1,15 @@
 <?php
+
+
 function enqueue_custom_styles() {
     wp_enqueue_style( 'motaphototheme-style', get_template_directory_uri() . '/style.css', array());
     wp_enqueue_script('scripts', get_template_directory_uri() . '/js/scripts.js');
     wp_enqueue_script("jquery");
+    wp_enqueue_script('scripts', get_template_directory_uri() . '/js/load-more.js', array('jquery'), null, true);
+    wp_localize_script('scripts', 'loadmore_params', array(
+        'ajaxurl' => admin_url('admin-ajax.php'), // WordPress AJAX URL
+        'post_type' => 'album', // Replace with your custom post type
+    ));
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
 
@@ -14,7 +21,63 @@ function add_defer_attribute($tag, $handle) {
 }
 add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
 
+//ajax
+function loadmore_ajax_handler(){
+    $args = array(
+        'post_type' => $_POST['post_type'],
+        'post_status' => 'publish',
+        'paged' => $_POST['page'],
+        'posts_per_page' => 8,
+    );
 
+    set_query_var('newquery', $args);
+    set_query_var('uri', $theme_uri);
+    get_template_part('./templates-part/post_query');
+
+    wp_die();
+}
+
+add_action('wp_ajax_loadmore', 'loadmore_ajax_handler');
+add_action('wp_ajax_nopriv_loadmore', 'loadmore_ajax_handler');
+
+function filterAlbum_ajax_handler(){
+    $args = array(
+        'post_type' => $_POST['post_type'],
+        'post_status' => 'publish',
+        // 'oderby' => 'date',
+        // 'oder' => 'DESC',
+        'paged' => -1,
+        'tax_query' => array(
+            $_POST['category'] != "all" ?
+            array(
+                'taxonomy' => 'categorie',
+                'field' => 'slug',
+                'terms' => $_POST['cat'],
+            ):'',
+            $_POST['format'] != "all" ?
+            array(
+                'taxonomy' => 'format',
+                'field' => 'slug',
+                'terms' => $_POST['format'],
+            ):'',
+        ),
+        'date_query' => $_POST['year'] != 'all' ? array(
+            array(
+                'year' => $_POST['year'],
+            ),
+        ):'',
+    );
+
+    set_query_var('newquery', $args);
+    set_query_var('uri', $theme_uri);
+    get_template_part('./templates-part/post_query');
+
+    wp_die();
+}
+
+add_action('wp_ajax_filterAlbum', 'filterAlbum_ajax_handler');
+add_action('wp_ajax_nopriv_filterAlbum', 'filterAlbum_ajax_handler');
+//ajax
 
 
 function custom_theme_setup() {

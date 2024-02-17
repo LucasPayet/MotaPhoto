@@ -89,45 +89,27 @@ while ( have_posts() ) :
 	<section class="default-container justify-c">
 		<div class="max-w font-SpaceMono">
 			<h2 class="top-sep" id="related">VOUS AIMEREZ AUSSI</h2>
-			<div class="justify-sb">
-				<?php 
-				$related_query = new WP_Query( array(
-					'post_type' => 'album',
-					'posts_per_page' => 2,
-					'tax_query' => array(
-						array(
-							'taxonomy' => 'categorie',
-							'field' => 'term_id',
-							'terms' => $categories[0]->term_id,
-						)),
-					'post__not_in' => array($post_id),
-				));
-				$Rcat = $categories[0]->name;
-				$Rref = get_field('référence', $postId);
-				// $related_query = new WP_Query($related_args);
-				if ($related_query->have_posts()) :
-					while ($related_query->have_posts()) :
-						$related_query->the_post();
-						$postId = $post->ID
-						// echo the_post_thumbnail();
-						?>
-						<article class="relativ font-SpaceMono">
-							<img src=" <?php echo get_the_post_thumbnail_url(); ?>" data-cat="<?php echo $Rcat; ?>" data-ref="<?php echo $Rref; ?>" class="img-template">
-							<div class="overlay">
-								<a href="<?php echo get_post_permalink() ?>" class="eye"><img src="<?php echo $theme_uri . "/assets/images/Icon_eye.png" ?>"></a>
-								<button class="btn-style-no s-tl"><img src="<?php echo $theme_uri . "/assets/images/Icon_fullscreen.svg" ?>"></button>
-								<span class="s s-right upperc"><?php echo $Rref; ?></span>
-								<span class="s s-left upperc"><?php echo $Rcat; ?></span>
-							</div>
-						</article>
-
-					<?php endwhile;
-					wp_reset_postdata();	
-					endif;
+			<div class="photo-grid">
+				<?php
+					$related_query = array(
+						'post_type' => 'album',
+						'posts_per_page' => 2,
+						'tax_query' => array(
+							array(
+								'taxonomy' => 'categorie',
+								'field' => 'term_id',
+								'terms' => $categories[0]->term_id,
+							)),
+						'post__not_in' => array($post_id),
+						);
+					set_query_var('newquery', $related_query);
+					set_query_var('uri', $theme_uri);
+					get_template_part('./templates-part/post_query');
 				?>
 				
+				
 			</div>
-			<div class="w-100 justify-c margin-00"><a href="" class="submit-btn contact_ref txt-c">Toutes les photos</a></div>
+			<div class="w-100 justify-c margin-00"><a href=" <?php echo home_url() ?>" class="submit-btn contact_ref txt-c">Toutes les photos</a></div>
 		</div>
 		
 	</section>
