@@ -23,10 +23,13 @@ if ($related_query->have_posts()) :
         </article>
     <?php endwhile;
     wp_reset_postdata();
-else : ?>
-    <article class="relativ font-SpaceMono">
-        <p>Aucune photo ne correspond au filtre !</p>
-    </article>
+// else :
+//     // wp_send_json_error(
+//     //     array(
+//     //         'message' => 'Custom error message',
+//     //         'content' => '<article class="relativ font-SpaceMono"><p>Aucune photo ne correspond au filtre !</p></article>'
+//     //     )
+//     // );
+    
 
-<?php endif;
-?>
+endif;

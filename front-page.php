@@ -38,13 +38,13 @@ function get_posts_years_array() {
 <section class="default-container">
     <div class="filter-container max-w margin-a font-Poppins">
         <div class="dropdown-container">
-            <div class="dropdown-toggle click-dropdown">
+            <div id="Filtre_Catégories" class="dropdown-toggle click-dropdown upperc">
                 CATÉGORIES
             </div>
             <!-- <button class="upperc dropbtn" onclick="myFunction()">catégories</button> -->
             <div class="dropdown-menu">
                 <ul>
-                <li><option class="filter-me" data-format="all">Toutes les catégories</option></li>
+                <li><option class="filter-me" data-cat="all">Toutes les catégories</option></li>
                 <?php
                     $args = array(
                         'taxonomy' => 'categorie',
@@ -64,7 +64,7 @@ function get_posts_years_array() {
             </div>
         </div>
         <div class="dropdown-container">
-            <div class="dropdown-toggle click-dropdown">
+            <div id="Filtre_Formats" class="dropdown-toggle click-dropdown upperc">
                 FORMATS
             </div>
             <!-- <button class="upperc dropbtn" onclick="myFunction()">catégories</button> -->
@@ -89,13 +89,13 @@ function get_posts_years_array() {
             </div>
         </div>
         <div class="dropdown-container">
-            <div class="dropdown-toggle click-dropdown">
+            <div id="Filtre_Date" class="dropdown-toggle click-dropdown upperc">
                 TRIER PAR
             </div>
             <!-- <button class="upperc dropbtn" onclick="myFunction()">catégories</button> -->
             <div class="dropdown-menu">
                 <ul>
-                <li><option class="filter-me" data-format="all">Toutes les dates</option></li>
+                <li><option class="filter-me" data-year="all">Toutes les dates</option></li>
                 <?php
                     $years = get_posts_years_array();
                     foreach($years as $year) {
@@ -154,7 +154,7 @@ function get_posts_years_array() {
             
             
         </div>
-        <div class="w-100 margin-00"><button id="load-more-button" class="submit-btn contact_ref txt-c margin-a">Charger plus</button></div>
+        <div class="w-100 margin-00"><button id="load-more-button" class="submit-btn contact_ref  margin-a">Charger plus</button></div>
 
     </div>
     

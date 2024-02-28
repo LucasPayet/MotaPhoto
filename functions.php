@@ -41,14 +41,21 @@ add_action('wp_ajax_loadmore', 'loadmore_ajax_handler');
 add_action('wp_ajax_nopriv_loadmore', 'loadmore_ajax_handler');
 
 function filterAlbum_ajax_handler(){
-    $args = array(
+    if ($_POST['cat'] == "all" && $_POST['format'] == "all" && $_POST['year'] == 'all') {
+        $args = array(
+            'post_type'   => $_POST['post_type'],
+            'post_status' => 'publish',
+            'paged'       => -1,
+            'posts_per_page' => -1,
+        );
+    } 
+    else {
+        $args = array(
         'post_type' => $_POST['post_type'],
         'post_status' => 'publish',
-        // 'oderby' => 'date',
-        // 'oder' => 'DESC',
         'paged' => -1,
         'tax_query' => array(
-            $_POST['category'] != "all" ?
+            $_POST['cat'] != "all" ?
             array(
                 'taxonomy' => 'categorie',
                 'field' => 'slug',
@@ -67,6 +74,8 @@ function filterAlbum_ajax_handler(){
             ),
         ):'',
     );
+    }
+    
 
     set_query_var('newquery', $args);
     set_query_var('uri', $theme_uri);

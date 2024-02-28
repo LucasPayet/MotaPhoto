@@ -125,7 +125,7 @@ jQuery(function($){
                 type: 'POST',
                 success:function(response){
                     if(response){
-                        console.log('a response');
+                        // console.log('a response');
                         $container.append(response);
                         page++;
                         loading = false;
@@ -139,30 +139,54 @@ jQuery(function($){
         }
     });
 
+    var filtreCat = $('#Filtre_Catégories');
+    var filtreFormat = $('#Filtre_Formats');
+    var filtreDate = $('#Filtre_Date');
+
     var $filterBtn = $('.filter-me');
 
     var filterData = {
-        'action' : 'filterAlbum',
-        'cat' : 'all',
-        'format': 'all',
-        'year' : 'all',
-        'post_type' : 'album'
-    };
+            'action' : 'filterAlbum',
+            'cat' : 'all',
+            'format': 'all',
+            'year' : 'all',
+            'post_type' : 'album'
+        };
 
     $filterBtn.on('click', function(){
+        $loadmoreButton.hide();
         var valide = false;
 
         if ($(this).data('cat') !== undefined && $(this).data('cat') !== 'all') {
-            filterData.cat = $(this).data('cat');
+            var catData = $(this).data('cat');
+            filterData.cat = catData;
+            filtreCat.text(catData);
+            valide = true;
+        } else if ($(this).data('cat') !== undefined) {
+            filterData.cat = 'all';
+            filtreCat.text("CATÉGORIES");
             valide = true;
         }
-        // filterData.cat = 'concert';
+
         if ($(this).data('format') !== undefined && $(this).data('format') !== 'all') {
-            filterData.format = $(this).data('format');
+            var formatData = $(this).data('format');
+            filterData.format = formatData;
+            filtreFormat.text(formatData);
+            valide = true;
+        }else if ($(this).data('format') !== undefined) {
+            filterData.format = 'all';
+            filtreFormat.text("FORMATS");
             valide = true;
         }
+
         if ($(this).data('year') !== undefined && $(this).data('year') !== 'all') {
-            filterData.year = $(this).data('year');
+            var dateData = $(this).data('year');
+            filterData.year = dateData;
+            filtreDate.text(dateData);
+            valide = true;
+        }else if ($(this).data('year') !== undefined) {
+            filterData.year = 'all';
+            filtreDate.text("TRIER PAR");
             valide = true;
         }
         // theYear = $filterBtn.data('year');$(this).data('cat')
@@ -176,10 +200,12 @@ jQuery(function($){
                 dataType : 'html',
                 success:function(response){
                     if(response){
+                        // console.log(response);
                         $container.html(response);
                         // console.log(response)
                     } else {
                         console.log('no response');
+                        $container.html('<article class="relativ font-SpaceMono"><p>Aucune photo ne correspond au filtre !</p></article>');
                         $loadmoreButton.hide(); // Hide the button if no more posts
                     }
                 }
