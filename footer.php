@@ -2,16 +2,16 @@
     $theme_uri = get_stylesheet_directory_uri(); 
     get_template_part("templates-part/contact") 
     ?>
-    <div id="lightbox">
+    <div id="lightbox" class="lightbox-none">
         <button class="Lb-nav-btn Lb-prev-btn"><img class="default" src=" <?php echo $theme_uri . '/assets/images/PrevDefault.svg' ?>" alt=""><img class="hover" src=" <?php echo $theme_uri . '/assets/images/PrevHover.svg' ?>" alt=""></button>
         <div class="lol"></div>
-        <!-- <figure>
-            <img src="" alt="">
+        <figure>
+            <img id="lightboxImage" src="" alt="">
             <figcaption>
                 
                 <span id="LbRef"></span><span id="LbCat"></span>
             </figcaption>
-        </figure> -->
+        </figure>
         <div>
             <button id="Lb-close"></button>
             <button class="Lb-nav-btn"><img class="default" src=" <?php echo $theme_uri . '/assets/images/NextDefault.svg' ?>" alt=""><img class="hover" src=" <?php echo $theme_uri . '/assets/images/NextHover.svg' ?>" alt=""></button>

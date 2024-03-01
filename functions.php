@@ -86,6 +86,63 @@ function filterAlbum_ajax_handler(){
 
 add_action('wp_ajax_filterAlbum', 'filterAlbum_ajax_handler');
 add_action('wp_ajax_nopriv_filterAlbum', 'filterAlbum_ajax_handler');
+
+function get_lightboxJson_ajax_handler(){
+    $args = array( 
+        'post_type' => 'album',
+        'numberposts' => '1', 
+    );
+    $post_id = $_POST['postID'];
+    global $post;
+    $post = get_post($post_id);
+
+    $oldargs = array(
+        'post_type' =>'album',
+        'numberposts' => -1,
+        'posts_per_page' => 1,
+        'order' => 'ASC' );
+    
+    $oldest_posts = get_posts($oldargs);
+    $oldest_posts_id = $oldest_posts->ID;
+
+    $lastargs = array(
+        'post_type' =>'album',
+        'numberposts' => 0,
+        'posts_per_page' => 1,
+        'order' => 'ASC' );
+    
+    $lastest_posts = get_posts($lastargs);
+    $lastest_posts_id = $lastest_posts->ID;
+
+
+    if (get_previous_post()){
+        $prevlink = get_previous_post()->ID;
+    }else{
+        $prevlink = get_post_permalink($oldest_posts_id);
+    }
+    if (get_next_post()){
+        $nextlink = get_next_post()->ID;
+    }else{
+        $nextlink = $lastest_posts_id;
+    }
+
+    $img = get_the_post_thumbnail_url($post);
+    $categories = get_the_terms( $post_id, 'categorie' );
+    $ref=get_field('référence', $post_id);
+    $data = array(
+        'image' => $img,
+        'ref' => $ref,
+        'cat' => $categories[0]->name,
+        'prevlink' => $prevlink,
+        'nextlink' => $nextlink
+    );
+
+    wp_send_json($data);
+}
+
+add_action('wp_ajax_getlightbox', 'get_lightboxJson_ajax_handler');
+add_action('wp_ajax_nopriv_getlightbox', 'get_lightboxJson_ajax_handler');
+
 //ajax
 
 

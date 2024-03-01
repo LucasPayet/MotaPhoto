@@ -17,7 +17,6 @@ MotaPhoto WordPress Theme, (C) 2021 WordPress.org
 MotaPhoto is distributed under the terms of the GNU GPL.
 */
 
-/* body{background: red;} */
 @font-face {
     font-family: 'Space Mono';
     src: url('./fonts/Space-Mono/SpaceMono-Regular.ttf') format('truetype');
@@ -598,12 +597,15 @@ footer .menu{
 
 /*lightbox*/
 #lightbox{
-    background: rgba(0, 0, 0, 80%);
-    position: fixed;
-    inset: 0;
     display: grid;
     grid-template-columns: .5fr 1fr .5fr;
+    inset: 0;
     align-items: center;
+    background: rgba(0, 0, 0, 80%);
+    position: fixed;
+}
+.lightbox-none{
+    display: none!important;
 }
 #Lb-close{
     padding: 0;

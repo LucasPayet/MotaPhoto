@@ -143,7 +143,7 @@ jQuery(function($){
     var filtreFormat = $('#Filtre_Formats');
     var filtreDate = $('#Filtre_Date');
 
-    var $filterBtn = $('.filter-me');
+    var filterBtn = $('.filter-me');
 
     var filterData = {
             'action' : 'filterAlbum',
@@ -153,7 +153,7 @@ jQuery(function($){
             'post_type' : 'album'
         };
 
-    $filterBtn.on('click', function(){
+    filterBtn.on('click', function(){
         $loadmoreButton.hide();
         var valide = false;
 
@@ -202,7 +202,6 @@ jQuery(function($){
                     if(response){
                         // console.log(response);
                         $container.html(response);
-                        // console.log(response)
                     } else {
                         console.log('no response');
                         $container.html('<article class="relativ font-SpaceMono"><p>Aucune photo ne correspond au filtre !</p></article>');
@@ -213,6 +212,43 @@ jQuery(function($){
         }
             
     });
+
+    var lightbox_btn = $('.lightbox_btn');
+    var lightbox = $('#lightbox');
+    var lightbox_close = $('#Lb-close');
+    var lightboxImage = $('#lightboxImage');
+
+    lightbox_btn.on('click', function(){
+        var thispostid = $(this).data('postid');
+
+        var lightbox_data = {
+            'action' : 'getlightbox',
+            'postID' : thispostid,
+        };
+        console.log(lightbox_data)
+        lightbox.toggleClass('lightbox-none');
+        $.ajax({
+            url: loadmore_params.ajaxurl,
+            data: lightbox_data,
+            type: 'POST',
+            dataType : 'json',
+            success:function(response){
+                if(response){
+                    console.log(response);
+                    // $container.html(response);
+                } else {
+                    console.log('no response');
+                    // $container.html('<article class="relativ font-SpaceMono"><p>Aucune photo ne correspond au filtre !</p></article>');
+                    // $loadmoreButton.hide(); // Hide the button if no more posts
+                }
+            }
+        });
+        // lightboxImage.attr('src', 'http://localhost/MotaPhoto/wp-content/uploads/2023/11/nathalie-15-scaled.jpeg')
+    });
+
+    lightbox_close.on('click', function(){
+        lightbox.toggleClass('lightbox-none');
+    })
 
     
 });
