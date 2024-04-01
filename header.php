@@ -29,11 +29,18 @@
                     <img src="<?php echo get_theme_mod('montheme_logo'); ?>" alt="MotaPhto Logo">
                 </a>
             </div>
+
+            <button class="burger">
+                <span class="line l1"></span>
+                <span class="line l2"></span>
+                <span class="line l3"></span>
+            </button>
+
             <?php
             // Display the primary menu
             wp_nav_menu(array(
                 'theme_location' => 'primary-menu', // Replace 'primary-menu' with the name of your menu location
-                'menu_class' => 'menu', // CSS class to be added to the <ul> element
+                'menu_class' => 'menu nav-position', // CSS class to be added to the <ul> element
                 'container' => true, // Don't wrap the menu in a <div> container
             ));
             ?>

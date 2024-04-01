@@ -47,8 +47,8 @@ while ( have_posts() ) :
 				echo '<p>Custom Field Content: ' . esc_html($custom_field_value) . '</p>';
 			}
 			?>
-			<div class="post-info">
-				<h1 class="post-title"> <?php echo get_the_title() ?></h1>
+			<div class="post-info resp-pad-54">
+				<h1 class="post-title upperc"> <?php echo get_the_title() ?></h1>
 				<div class="taxonomy">
 					<p id="ref" class="upperc">Référence : <?php echo $ref ?></p>
 					<?php
@@ -66,7 +66,7 @@ while ( have_posts() ) :
 					<p class="upperc">Année : <?php echo $post_date ?></p>
 				</div>
 			</div>
-			<div class="interested flex-wrap h-110">
+			<div class="interested flex-wrap h-110 resp-pad-54">
 					<p class="title-interest">Cette photo vous intéresse ?</p>
 					<button id="ContactRef" class="submit-btn contact_ref btn-style-no">Contact</button>
 				</div>
@@ -86,7 +86,7 @@ while ( have_posts() ) :
 			</div>
 		</article>
 	</section>
-	<section class="default-container justify-c">
+	<section id="related-sect" class="default-container justify-c resp-pad-29">
 		<div class="max-w font-SpaceMono">
 			<h2 class="top-sep" id="related">VOUS AIMEREZ AUSSI</h2>
 			<div class="photo-grid">

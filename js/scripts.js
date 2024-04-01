@@ -1,24 +1,37 @@
-const contactbtns = document.querySelectorAll('.contact_btn');
-const contactForm = document.querySelector('.contactForm');
-const modale = document.querySelector('.contact-box')
-contactbtns.forEach(contactbtn => {
-    contactbtn.addEventListener('click', () => {
-        contactForm.classList.toggle('hide');
-    })
-});
+// const contactbtns = document.querySelectorAll('.contact_btn');
+// const contactForm = document.querySelector('.contactForm');
+// const modale = document.querySelector('.contact-box')
+// contactbtns.forEach(contactbtn => {
+//     contactbtn.addEventListener('click', () => {
+//         contactForm.classList.toggle('hide');
+//     })
+// });
 
-window.addEventListener('click', (e) => {
-    if (e.target == contactForm){
-        console.log(e);
-        contactForm.classList.toggle('hide');
-    }
-})
+// window.addEventListener('click', (e) => {
+//     if (e.target == contactForm){
+//         console.log(e);
+//         contactForm.classList.toggle('hide');
+//     }
+// })
+
 
 jQuery(document).ready(function($){
+    $(".contact_btn").click(function(){
+        $('.contactForm').toggleClass('hide');
+    });
+
     $("#ContactRef").click(function(){
         $('.contactForm').toggleClass('hide');
         var ref = $("#ref").html().replace("Référence : ", "").toUpperCase();
         $("input#reference").val(ref);
+    });
+
+    $(document).click(function(e) {
+        var contactForm = $('.contactForm');
+        if (e.target === contactForm[0]) {
+            contactForm.toggleClass('hide');
+            $("input#reference").val("");
+        }
     });
 });
 
@@ -51,27 +64,27 @@ function dropDownFunc(dropDown) {
         });
     }
 
-    if(dropDown.classList.contains('hover-dropdown') === true){
+    // if(dropDown.classList.contains('hover-dropdown') === true){
 
-        dropDown.onmouseover  =  dropDown.onmouseout = dropdownHover;
+    //     dropDown.onmouseover  =  dropDown.onmouseout = dropdownHover;
 
-        function dropdownHover(e){
-            if(e.type == 'mouseover'){
-                // Close the opend dropdown
-                closeDropdown();
+    //     function dropdownHover(e){
+    //         if(e.type == 'mouseover'){
+    //             // Close the opend dropdown
+    //             closeDropdown();
 
-                // add the open and active class(Opening the DropDown)
-                this.parentElement.classList.add('dropdown-open');
-                this.nextElementSibling.classList.add('dropdown-active');
+    //             // add the open and active class(Opening the DropDown)
+    //             this.parentElement.classList.add('dropdown-open');
+    //             this.nextElementSibling.classList.add('dropdown-active');
                 
-            }
+    //         }
 
-            // if(e.type == 'mouseout'){
-            //     // close the dropdown after user leave the list
-            //     e.target.nextElementSibling.onmouseleave = closeDropdown;
-            // }
-        }
-    }
+    //         // if(e.type == 'mouseout'){
+    //         //     // close the dropdown after user leave the list
+    //         //     e.target.nextElementSibling.onmouseleave = closeDropdown;
+    //         // }
+    //     }
+    // }
 
 };
 
@@ -90,7 +103,7 @@ window.addEventListener('click', function (e) {
 
 // Close the openend Dropdowns
 function closeDropdown() { 
-    console.log('run');
+    // console.log('run');
     
     // remove the open and active class from other opened Dropdown (Closing the opend DropDown)
     document.querySelectorAll('.dropdown-container').forEach(function (container) { 
@@ -105,6 +118,23 @@ function closeDropdown() {
 // close the dropdown on mouse out from the dropdown list
 
 jQuery(function($){
+    var burger = $('.burger');
+    var menu = $('.menu');
+
+    // Check window width on resize
+    $(window).resize(function() {
+        if ($(window).width() >= 900) {
+            $("html").css("--anim-speed", "0s");
+        }
+    });
+
+    burger.on('click', function (){
+        burger.toggleClass('active');
+        menu.toggleClass('nav-position');
+        $("html").css("--anim-speed", "1s");
+    })
+
+    //
     var page = 2;
     var loading = false;
     var $loadmoreButton = $('#load-more-button');
@@ -129,6 +159,7 @@ jQuery(function($){
                         $container.append(response);
                         page++;
                         loading = false;
+                        // lightboxHandler();
                     } else {
                         console.log('no response');
                         loading = false;
@@ -202,6 +233,8 @@ jQuery(function($){
                     if(response){
                         // console.log(response);
                         $container.html(response);
+                        closeDropdown()
+                        // lightboxHandler();
                     } else {
                         console.log('no response');
                         $container.html('<article class="relativ font-SpaceMono"><p>Aucune photo ne correspond au filtre !</p></article>');
@@ -209,24 +242,34 @@ jQuery(function($){
                     }
                 }
             });
+            $(this).closest('ul').find('.filter-me').removeClass('filter-click');
+            $(this).addClass('filter-click');
         }
             
     });
+    var lightbox_btn = $('.lightbox_btn'); //overlay lightbox btn
+    var lightbox = $('#lightbox'); //lightbox container
+    // var Lb_btn = $('.Lb-nav-btn');  //lightbox nav btn
+    var lb_prev = $('.Lb-prev-btn');
+    var lb_next = $('.Lb-next-btn');
+    var lightboxImage = $('#lightboxImage'); //lightbox img
+    var lightbox_off = true;
+    var current_postid;
 
-    var lightbox_btn = $('.lightbox_btn');
-    var lightbox = $('#lightbox');
-    var lightbox_close = $('#Lb-close');
-    var lightboxImage = $('#lightboxImage');
+    const spanRef = $('#LbRef');
+    const spanCat = $('#LbCat');
+    // var lightboxpostid;
 
-    lightbox_btn.on('click', function(){
-        var thispostid = $(this).data('postid');
+    var nextImageId;
+    var prevImageId;
 
+    function lightbox_ajax(postid){
         var lightbox_data = {
             'action' : 'getlightbox',
-            'postID' : thispostid,
+            'postID' : postid,
         };
-        console.log(lightbox_data)
-        lightbox.toggleClass('lightbox-none');
+        console.log(lightbox_data);
+
         $.ajax({
             url: loadmore_params.ajaxurl,
             data: lightbox_data,
@@ -235,20 +278,43 @@ jQuery(function($){
             success:function(response){
                 if(response){
                     console.log(response);
-                    // $container.html(response);
+                    lightboxImage.attr('src', response.image);
+                    nextImageId = response.nextlink;
+                    prevImageId = response.prevlink;
+                    spanRef.html(response.ref);
+                    spanCat.html(response.cat);
+                    // lb_prev.attr('data-postid', response.prevlink);
+                    // lb_next.attr('data-postid', response.nextlink);
+                    if (lightbox_off){
+                        lightbox.toggleClass('lightbox-none');
+                        lightbox_off = false;
+                        return;
+                    };
                 } else {
                     console.log('no response');
-                    // $container.html('<article class="relativ font-SpaceMono"><p>Aucune photo ne correspond au filtre !</p></article>');
-                    // $loadmoreButton.hide(); // Hide the button if no more posts
+                    return;
                 }
             }
         });
-        // lightboxImage.attr('src', 'http://localhost/MotaPhoto/wp-content/uploads/2023/11/nathalie-15-scaled.jpeg')
+    }
+    
+    lightbox_btn.on('click',function(){
+        current_postid = $(this).data('postid');
+        lightbox_ajax(current_postid);
+    });
+    
+    lb_prev.on('click', function(){
+        current_postid = prevImageId;
+        lightbox_ajax(current_postid);
+    });
+    lb_next.on('click', function(){
+        current_postid = nextImageId;
+        lightbox_ajax(current_postid);
     });
 
+    var lightbox_close = $('#Lb-close');
     lightbox_close.on('click', function(){
         lightbox.toggleClass('lightbox-none');
+        lightbox_off = true;
     })
-
-    
 });

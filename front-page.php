@@ -35,7 +35,7 @@ function get_posts_years_array() {
         </div>
     </div>
 </section>
-<section class="default-container">
+<section class="default-container resp-pad-29">
     <div class="filter-container max-w margin-a font-Poppins">
         <div class="dropdown-container">
             <div id="Filtre_Catégories" class="dropdown-toggle click-dropdown upperc">
@@ -106,39 +106,6 @@ function get_posts_years_array() {
                 </ul>
             </div>
         </div>
-        <!-- <div class="dropdown-container">
-            <div class="dropdown-content">
-                <button class="upperc">formats</button>
-                <?php
-                    $args = array(
-                        'taxonomy' => 'format',
-                        'orderby' => 'name',
-                        'order'   => 'ASC'
-                    );
-                    $formats = get_categories($args);
-
-                    foreach($formats as $format) {
-                        $val = $format->name;
-                    ?>
-                        <span value = <?php echo $val . ">" . $val; ?></span>
-                    <?php };
-                ?>
-            </div>
-        </div>
-        
-        <div class="dropdown">
-            <div class="dropdown-content">
-                <button class="upperc">catégories</button>
-                <?php
-                    $years = get_posts_years_array();
-                    foreach($years as $year) {
-                    ?>
-                        <span value = <?php echo $year . ">" . $year; ?></span>
-                    <?php };
-                ?>
-            </div>
-        </div> -->
-
     </div>
     <div class="max-w margin-a font-SpaceMono">
         <div id="post-container" class="photo-grid">

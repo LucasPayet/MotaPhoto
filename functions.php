@@ -103,7 +103,7 @@ function get_lightboxJson_ajax_handler(){
         'order' => 'ASC' );
     
     $oldest_posts = get_posts($oldargs);
-    $oldest_posts_id = $oldest_posts->ID;
+    $oldest_posts_id = $oldest_posts[0]->ID;
 
     $lastargs = array(
         'post_type' =>'album',
@@ -112,16 +112,16 @@ function get_lightboxJson_ajax_handler(){
         'order' => 'ASC' );
     
     $lastest_posts = get_posts($lastargs);
-    $lastest_posts_id = $lastest_posts->ID;
+    $lastest_posts_id = $lastest_posts[0]->ID;
 
 
-    if (get_previous_post()){
-        $prevlink = get_previous_post()->ID;
-    }else{
-        $prevlink = get_post_permalink($oldest_posts_id);
-    }
     if (get_next_post()){
-        $nextlink = get_next_post()->ID;
+        $prevlink = get_next_post()->ID;
+    }else{
+        $prevlink = $oldest_posts_id;
+    }
+    if (get_previous_post()){
+        $nextlink = get_previous_post()->ID;
     }else{
         $nextlink = $lastest_posts_id;
     }
