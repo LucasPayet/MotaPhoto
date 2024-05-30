@@ -11,9 +11,7 @@
         }
     </style>
 </head>
-<section class="default-container justify-c">
-    <?php
-    //if (!wp_is_mobile()){ ?>
+<section class="default-container justify-c custom-shadow">
     <header class="max-w">
         <?php 
         if (has_custom_logo()){
@@ -39,9 +37,9 @@
             <?php
             // Display the primary menu
             wp_nav_menu(array(
-                'theme_location' => 'primary-menu', // Replace 'primary-menu' with the name of your menu location
-                'menu_class' => 'menu nav-position', // CSS class to be added to the <ul> element
-                'container' => true, // Don't wrap the menu in a <div> container
+                'theme_location' => 'primary-menu',
+                'menu_class' => 'menu nav-position',
+                'container' => true,
             ));
             ?>
         </nav>

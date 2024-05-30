@@ -1,20 +1,3 @@
-// const contactbtns = document.querySelectorAll('.contact_btn');
-// const contactForm = document.querySelector('.contactForm');
-// const modale = document.querySelector('.contact-box')
-// contactbtns.forEach(contactbtn => {
-//     contactbtn.addEventListener('click', () => {
-//         contactForm.classList.toggle('hide');
-//     })
-// });
-
-// window.addEventListener('click', (e) => {
-//     if (e.target == contactForm){
-//         console.log(e);
-//         contactForm.classList.toggle('hide');
-//     }
-// })
-
-
 jQuery(document).ready(function($){
     $(".contact_btn").click(function(){
         $('.contactForm').toggleClass('hide');
@@ -37,23 +20,38 @@ jQuery(document).ready(function($){
 
 
 //Dropdown
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function dp_menu_zIndex() {
+    sleep(500).then(() => {
+        dp_menu.forEach(function(dp_menu) {
+            dp_menu.style.zIndex = "-1";
+        });
+    });
+}
+dp_menu = document.querySelectorAll('.dropdown-menu');
 // Get all the dropdown from document
 document.querySelectorAll('.dropdown-toggle').forEach(dropDownFunc);
 
 // Dropdown Open and Close function
 function dropDownFunc(dropDown) {
-    console.log(dropDown.classList.contains('click-dropdown'));
-
     if(dropDown.classList.contains('click-dropdown') === true){
         dropDown.addEventListener('click', function (e) {
             e.preventDefault();        
     
             if (this.nextElementSibling.classList.contains('dropdown-active') === true) {
                 // Close the clicked dropdown
+
                 this.parentElement.classList.remove('dropdown-open');
                 this.nextElementSibling.classList.remove('dropdown-active');
-    
+                dp_menu_zIndex()
             } else {
+                dp_menu.forEach(function(dp_menu) {
+                    dp_menu.style.zIndex = "10";
+                });
+
                 // Close the opend dropdown
                 closeDropdown();
     
@@ -63,29 +61,6 @@ function dropDownFunc(dropDown) {
             }
         });
     }
-
-    // if(dropDown.classList.contains('hover-dropdown') === true){
-
-    //     dropDown.onmouseover  =  dropDown.onmouseout = dropdownHover;
-
-    //     function dropdownHover(e){
-    //         if(e.type == 'mouseover'){
-    //             // Close the opend dropdown
-    //             closeDropdown();
-
-    //             // add the open and active class(Opening the DropDown)
-    //             this.parentElement.classList.add('dropdown-open');
-    //             this.nextElementSibling.classList.add('dropdown-active');
-                
-    //         }
-
-    //         // if(e.type == 'mouseout'){
-    //         //     // close the dropdown after user leave the list
-    //         //     e.target.nextElementSibling.onmouseleave = closeDropdown;
-    //         // }
-    //     }
-    // }
-
 };
 
 
@@ -95,6 +70,7 @@ window.addEventListener('click', function (e) {
     // Close the menu if click happen outside menu
     if (e.target.closest('.dropdown-container') === null) {
         // Close the opend dropdown
+        dp_menu_zIndex()
         closeDropdown();
     }
 
@@ -103,8 +79,6 @@ window.addEventListener('click', function (e) {
 
 // Close the openend Dropdowns
 function closeDropdown() { 
-    // console.log('run');
-    
     // remove the open and active class from other opened Dropdown (Closing the opend DropDown)
     document.querySelectorAll('.dropdown-container').forEach(function (container) { 
         container.classList.remove('dropdown-open')
@@ -115,9 +89,10 @@ function closeDropdown() {
     });
 }
 
-// close the dropdown on mouse out from the dropdown list
 
 jQuery(function($){
+
+    //burger menu
     var burger = $('.burger');
     var menu = $('.menu');
 
@@ -133,8 +108,9 @@ jQuery(function($){
         menu.toggleClass('nav-position');
         $("html").css("--anim-speed", "1s");
     })
+    //end burger menu
 
-    //
+    //load more button
     var page = 2;
     var loading = false;
     var $loadmoreButton = $('#load-more-button');
@@ -155,7 +131,6 @@ jQuery(function($){
                 type: 'POST',
                 success:function(response){
                     if(response){
-                        // console.log('a response');
                         $container.append(response);
                         page++;
                         loading = false;
@@ -169,7 +144,9 @@ jQuery(function($){
             });
         }
     });
+    //end load more
 
+    //filter
     var filtreCat = $('#Filtre_Catégories');
     var filtreFormat = $('#Filtre_Formats');
     var filtreDate = $('#Filtre_Date');
@@ -220,9 +197,7 @@ jQuery(function($){
             filtreDate.text("TRIER PAR");
             valide = true;
         }
-        // theYear = $filterBtn.data('year');$(this).data('cat')
-        // filterData.year = $(this).data('year');
-        console.log(filterData);
+        
         if (valide){
             $.ajax({
                 url: loadmore_params.ajaxurl,
@@ -231,14 +206,14 @@ jQuery(function($){
                 dataType : 'html',
                 success:function(response){
                     if(response){
-                        // console.log(response);
                         $container.html(response);
+                        dp_menu_zIndex()
                         closeDropdown()
                         // lightboxHandler();
                     } else {
                         console.log('no response');
                         $container.html('<article class="relativ font-SpaceMono"><p>Aucune photo ne correspond au filtre !</p></article>');
-                        $loadmoreButton.hide(); // Hide the button if no more posts
+                
                     }
                 }
             });
@@ -247,9 +222,12 @@ jQuery(function($){
         }
             
     });
+    //end filter
+
+    //overlay
+    //lb > lightbox
     var lightbox_btn = $('.lightbox_btn'); //overlay lightbox btn
     var lightbox = $('#lightbox'); //lightbox container
-    // var Lb_btn = $('.Lb-nav-btn');  //lightbox nav btn
     var lb_prev = $('.Lb-prev-btn');
     var lb_next = $('.Lb-next-btn');
     var lightboxImage = $('#lightboxImage'); //lightbox img
@@ -258,7 +236,6 @@ jQuery(function($){
 
     const spanRef = $('#LbRef');
     const spanCat = $('#LbCat');
-    // var lightboxpostid;
 
     var nextImageId;
     var prevImageId;
@@ -268,7 +245,6 @@ jQuery(function($){
             'action' : 'getlightbox',
             'postID' : postid,
         };
-        console.log(lightbox_data);
 
         $.ajax({
             url: loadmore_params.ajaxurl,
@@ -277,14 +253,11 @@ jQuery(function($){
             dataType : 'json',
             success:function(response){
                 if(response){
-                    console.log(response);
                     lightboxImage.attr('src', response.image);
                     nextImageId = response.nextlink;
                     prevImageId = response.prevlink;
                     spanRef.html(response.ref);
                     spanCat.html(response.cat);
-                    // lb_prev.attr('data-postid', response.prevlink);
-                    // lb_next.attr('data-postid', response.nextlink);
                     if (lightbox_off){
                         lightbox.toggleClass('lightbox-none');
                         lightbox_off = false;
@@ -317,4 +290,5 @@ jQuery(function($){
         lightbox.toggleClass('lightbox-none');
         lightbox_off = true;
     })
+    //end overlay
 });

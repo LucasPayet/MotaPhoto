@@ -1,9 +1,8 @@
 <?php
+//return the html of the preview of album photos
 $theme_uri = get_stylesheet_directory_uri();
 $related_query = new WP_Query( get_query_var('newquery'));
 
-
-// $theme_uri = get_query_var('uri');
 if ($related_query->have_posts()) :
     while ($related_query->have_posts()) :
         $related_query->the_post();

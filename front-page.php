@@ -41,7 +41,6 @@ function get_posts_years_array() {
             <div id="Filtre_Catégories" class="dropdown-toggle click-dropdown upperc">
                 CATÉGORIES
             </div>
-            <!-- <button class="upperc dropbtn" onclick="myFunction()">catégories</button> -->
             <div class="dropdown-menu">
                 <ul>
                 <li><option class="filter-me" data-cat="all">Toutes les catégories</option></li>
@@ -67,7 +66,6 @@ function get_posts_years_array() {
             <div id="Filtre_Formats" class="dropdown-toggle click-dropdown upperc">
                 FORMATS
             </div>
-            <!-- <button class="upperc dropbtn" onclick="myFunction()">catégories</button> -->
             <div class="dropdown-menu">
                 <ul>
                     <li><option class="filter-me" data-format="all">Toutes les formats</option></li>
@@ -92,7 +90,6 @@ function get_posts_years_array() {
             <div id="Filtre_Date" class="dropdown-toggle click-dropdown upperc">
                 TRIER PAR
             </div>
-            <!-- <button class="upperc dropbtn" onclick="myFunction()">catégories</button> -->
             <div class="dropdown-menu">
                 <ul>
                 <li><option class="filter-me" data-year="all">Toutes les dates</option></li>
@@ -115,7 +112,6 @@ function get_posts_years_array() {
                     'posts_per_page' => 8,
                     );
                 set_query_var('newquery', $related_query);
-                set_query_var('uri', $theme_uri);
                 get_template_part('./templates-part/post_query');
             ?>
             

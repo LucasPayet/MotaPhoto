@@ -3,7 +3,6 @@
     get_template_part("templates-part/contact") 
     ?>
     <div id="lightbox" class="lightbox-none font-SpaceMono upperc">
-        <!-- <div class="lol"></div> -->
         <figure>
             <img id="lightboxImage" src="" alt="" >
             <figcaption>
@@ -18,13 +17,12 @@
     </div>
     <footer class="default-container justify-c">
         <nav class="max-w justify-c">
-            <!-- id="footer-menu" -->
             <?php
-            // Display the primary menu
+            // Display the secondary menu
             wp_nav_menu(array(
-                'theme_location' => 'secondary-menu', // Replace 'primary-menu' with the name of your menu location
-                'menu_class' => 'menu-footer ', // CSS class to be added to the <ul> element
-                'container' => true, // Don't wrap the menu in a <div> container
+                'theme_location' => 'secondary-menu',
+                'menu_class' => 'menu-footer ',
+                'container' => true,
             ));
             ?>
         </nav>

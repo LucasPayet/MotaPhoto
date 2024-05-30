@@ -1,17 +1,10 @@
 <?php
 /**
- * The template for displaying all single posts
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
- *
- * @package WordPress
- * @subpackage Twenty_Twenty_One
- * @since Twenty Twenty-One 1.0
- */
+ * The template for displaying all single album posts
+*/
 
 get_header();
 
-/* Start the Loop */
 while ( have_posts() ) :
 	the_post();
 
@@ -23,8 +16,6 @@ while ( have_posts() ) :
 	$featured_image_src = wp_get_attachment_image_src($featured_image_id, 'full');
 
 	$taxonomies = get_object_taxonomies(get_post_type());
-
-	// $current_category = get_the_terms($post_id, "categories");
 
 	$type=get_field('type', $post_id);
 	$ref=get_field('référence', $post_id);
@@ -39,7 +30,6 @@ while ( have_posts() ) :
 	
 ?>
 	<section class="default-container justify-c">
-		<!-- Display the featured image -->
 		<article class="max-w grid-section font-SpaceMono">
 			<?php
 			$custom_field_value = get_post_meta(get_the_ID(), 'mon-album-acf', true);
@@ -103,7 +93,7 @@ while ( have_posts() ) :
 						'post__not_in' => array($post_id),
 						);
 					set_query_var('newquery', $related_query);
-					set_query_var('uri', $theme_uri);
+					// set_query_var('uri', $theme_uri);
 					get_template_part('./templates-part/post_query');
 				?>
 				

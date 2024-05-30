@@ -8,7 +8,7 @@ function enqueue_custom_styles() {
     wp_enqueue_script('scripts', get_template_directory_uri() . '/js/load-more.js', array('jquery'), null, true);
     wp_localize_script('scripts', 'loadmore_params', array(
         'ajaxurl' => admin_url('admin-ajax.php'), // WordPress AJAX URL
-        'post_type' => 'album', // Replace with your custom post type
+        'post_type' => 'album',
     ));
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
@@ -21,7 +21,7 @@ function add_defer_attribute($tag, $handle) {
 }
 add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
 
-//ajax
+//ajax loadmore
 function loadmore_ajax_handler(){
     $args = array(
         'post_type' => $_POST['post_type'],
@@ -40,6 +40,7 @@ function loadmore_ajax_handler(){
 add_action('wp_ajax_loadmore', 'loadmore_ajax_handler');
 add_action('wp_ajax_nopriv_loadmore', 'loadmore_ajax_handler');
 
+//ajax filter
 function filterAlbum_ajax_handler(){
     if ($_POST['cat'] == "all" && $_POST['format'] == "all" && $_POST['year'] == 'all') {
         $args = array(
@@ -87,6 +88,7 @@ function filterAlbum_ajax_handler(){
 add_action('wp_ajax_filterAlbum', 'filterAlbum_ajax_handler');
 add_action('wp_ajax_nopriv_filterAlbum', 'filterAlbum_ajax_handler');
 
+//ajax lightbox navigation
 function get_lightboxJson_ajax_handler(){
     $args = array( 
         'post_type' => 'album',
@@ -148,8 +150,8 @@ add_action('wp_ajax_nopriv_getlightbox', 'get_lightboxJson_ajax_handler');
 
 function custom_theme_setup() {
     register_nav_menus(array(
-        'primary-menu' => __('Primary Menu', 'text-domain'), // You can define multiple menu locations like this
-        'secondary-menu' => __('Secondary Menu', 'text-domain'), // Example of another menu location
+        'primary-menu' => __('Primary Menu', 'text-domain'),
+        'secondary-menu' => __('Secondary Menu', 'text-domain'),
     ));
 }
 add_action('after_setup_theme', 'custom_theme_setup');
