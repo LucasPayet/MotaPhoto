@@ -3,9 +3,9 @@
 
 function enqueue_custom_styles() {
     wp_enqueue_style( 'motaphototheme-style', get_template_directory_uri() . '/style.css', array());
-    wp_enqueue_script('scripts', get_template_directory_uri() . '/js/scripts.js');
+    wp_enqueue_script('scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'));
     wp_enqueue_script("jquery");
-    wp_enqueue_script('scripts', get_template_directory_uri() . '/js/load-more.js', array('jquery'), null, true);
+    
     wp_localize_script('scripts', 'loadmore_params', array(
         'ajaxurl' => admin_url('admin-ajax.php'), // WordPress AJAX URL
         'post_type' => 'album',
