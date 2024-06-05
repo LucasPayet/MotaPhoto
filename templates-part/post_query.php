@@ -12,7 +12,7 @@ if ($related_query->have_posts()) :
         $Rcat = $RTermCat[0]->name;
         ?>
         <article class="relativ font-SpaceMono">
-            <img src="<?php echo get_the_post_thumbnail_url(); ?>" data-cat="<?php echo $Rcat; ?>" data-ref="<?php echo $Rref; ?>" class="img-template">
+            <img src="<?php echo get_the_post_thumbnail_url(); ?>" data-cat="<?php echo $Rcat; ?>" data-ref="<?php echo $Rref; ?>" class="img-template" alt="">
             <div class="overlay">
                 <a href="<?php echo get_post_permalink() ?>" class="eye"><img src="<?php echo $theme_uri . "/assets/images/Icon_eye.png" ?>"></a>
                 <button class="btn-style-no s-tl lightbox_btn" data-postid="<?php echo $postId?>" ><img src="<?php echo $theme_uri . "/assets/images/Icon_fullscreen.svg" ?>"></button>

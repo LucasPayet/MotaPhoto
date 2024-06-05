@@ -3,6 +3,14 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><?php if (is_front_page()) {
+        echo 'Accueil';
+    } elseif (is_singular()){
+        echo get_the_title();
+    }else {
+        wp_title('|', true, 'right');
+    }?>
+    </title>
 	<?php wp_head(); ?>
     <style type="text/css" media="screen">
         html { margin-top: 0 !important; }

@@ -134,6 +134,7 @@ jQuery(function($){
                         $container.append(response);
                         page++;
                         loading = false;
+                        updateLightboxBtn();
                         // lightboxHandler();
                     } else {
                         console.log('no response');
@@ -209,6 +210,7 @@ jQuery(function($){
                         $container.html(response);
                         dp_menu_zIndex()
                         closeDropdown()
+                        updateLightboxBtn();
                         // lightboxHandler();
                     } else {
                         console.log('no response');
@@ -219,6 +221,7 @@ jQuery(function($){
             });
             $(this).closest('ul').find('.filter-me').removeClass('filter-click');
             $(this).addClass('filter-click');
+
         }
             
     });
@@ -228,67 +231,139 @@ jQuery(function($){
     //lb > lightbox
     var lightbox_btn = $('.lightbox_btn'); //overlay lightbox btn
     var lightbox = $('#lightbox'); //lightbox container
-    var lb_prev = $('.Lb-prev-btn');
-    var lb_next = $('.Lb-next-btn');
-    var lightboxImage = $('#lightboxImage'); //lightbox img
-    var lightbox_off = true;
-    var current_postid;
-
-    const spanRef = $('#LbRef');
-    const spanCat = $('#LbCat');
-
-    var nextImageId;
-    var prevImageId;
-
-    function lightbox_ajax(postid){
-        var lightbox_data = {
-            'action' : 'getlightbox',
-            'postID' : postid,
-        };
-
-        $.ajax({
-            url: loadmore_params.ajaxurl,
-            data: lightbox_data,
-            type: 'POST',
-            dataType : 'json',
-            success:function(response){
-                if(response){
-                    lightboxImage.attr('src', response.image);
-                    nextImageId = response.nextlink;
-                    prevImageId = response.prevlink;
-                    spanRef.html(response.ref);
-                    spanCat.html(response.cat);
-                    if (lightbox_off){
-                        lightbox.toggleClass('lightbox-none');
-                        lightbox_off = false;
-                        return;
-                    };
-                } else {
-                    console.log('no response');
-                    return;
-                }
-            }
-        });
-    }
-    
-    lightbox_btn.on('click',function(){
-        current_postid = $(this).data('postid');
-        lightbox_ajax(current_postid);
-    });
-    
-    lb_prev.on('click', function(){
-        current_postid = prevImageId;
-        lightbox_ajax(current_postid);
-    });
-    lb_next.on('click', function(){
-        current_postid = nextImageId;
-        lightbox_ajax(current_postid);
-    });
-
     var lightbox_close = $('#Lb-close');
+    var lightbox_off = true;
+    function updateLightboxBtn() {
+        lightbox_btn = $('.lightbox_btn');
+        var lb_prev = $('.Lb-prev-btn');
+        var lb_next = $('.Lb-next-btn');
+        var lightboxImage = $('#lightboxImage'); //lightbox img
+        
+        var current_postid;
+
+        const spanRef = $('#LbRef');
+        const spanCat = $('#LbCat');
+
+        var nextImageId;
+        var prevImageId;
+
+        function lightbox_ajax(postid){
+            var lightbox_data = {
+                'action' : 'getlightbox',
+                'postID' : postid,
+            };
+
+            $.ajax({
+                url: loadmore_params.ajaxurl,
+                data: lightbox_data,
+                type: 'POST',
+                dataType : 'json',
+                success:function(response){
+                    if(response){
+                        lightboxImage.attr('src', response.image);
+                        nextImageId = response.nextlink;
+                        prevImageId = response.prevlink;
+                        spanRef.html(response.ref);
+                        spanCat.html(response.cat);
+                        if (lightbox_off){
+                            lightbox.toggleClass('lightbox-none');
+                            lightbox_off = false;
+                            return;
+                        };
+                    } else {
+                        console.log('no response');
+                        return;
+                    }
+                }
+            });
+        }
+    
+        lightbox_btn.on('click',function(){
+            current_postid = $(this).data('postid');
+            lightbox_ajax(current_postid);
+        });
+        
+        lb_prev.on('click', function(){
+            current_postid = prevImageId;
+            lightbox_ajax(current_postid);
+        });
+        lb_next.on('click', function(){
+            current_postid = nextImageId;
+            lightbox_ajax(current_postid);
+        });
+
+        
+    //end overlay
+    }
+    // var lightbox_close = $('#Lb-close');
     lightbox_close.on('click', function(){
         lightbox.toggleClass('lightbox-none');
         lightbox_off = true;
     })
+    updateLightboxBtn();
+
+    // var lightbox = $('#lightbox'); //lightbox container
+    // var lb_prev = $('.Lb-prev-btn');
+    // var lb_next = $('.Lb-next-btn');
+    // var lightboxImage = $('#lightboxImage'); //lightbox img
+    // var lightbox_off = true;
+    // var current_postid;
+
+    // const spanRef = $('#LbRef');
+    // const spanCat = $('#LbCat');
+
+    // var nextImageId;
+    // var prevImageId;
+
+    // function lightbox_ajax(postid){
+    //     var lightbox_data = {
+    //         'action' : 'getlightbox',
+    //         'postID' : postid,
+    //     };
+
+    //     $.ajax({
+    //         url: loadmore_params.ajaxurl,
+    //         data: lightbox_data,
+    //         type: 'POST',
+    //         dataType : 'json',
+    //         success:function(response){
+    //             if(response){
+    //                 lightboxImage.attr('src', response.image);
+    //                 nextImageId = response.nextlink;
+    //                 prevImageId = response.prevlink;
+    //                 spanRef.html(response.ref);
+    //                 spanCat.html(response.cat);
+    //                 if (lightbox_off){
+    //                     lightbox.toggleClass('lightbox-none');
+    //                     lightbox_off = false;
+    //                     return;
+    //                 };
+    //             } else {
+    //                 console.log('no response');
+    //                 return;
+    //             }
+    //         }
+    //     });
+    // }
+    
+    // lightbox_btn.on('click',function(){
+    //     current_postid = $(this).data('postid');
+    //     lightbox_ajax(current_postid);
+    // });
+    
+    // lb_prev.on('click', function(){
+    //     current_postid = prevImageId;
+    //     lightbox_ajax(current_postid);
+    // });
+    // lb_next.on('click', function(){
+    //     current_postid = nextImageId;
+    //     lightbox_ajax(current_postid);
+    // });
+
+    // var lightbox_close = $('#Lb-close');
+    // lightbox_close.on('click', function(){
+    //     lightbox.toggleClass('lightbox-none');
+    //     lightbox_off = true;
+    // })
     //end overlay
 });

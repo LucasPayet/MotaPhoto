@@ -334,9 +334,6 @@ button{
     z-index: 10;
     position: relative;
 }
-.dropdown-open .dropdown-menu.dropdown-active {
-    /* display: block; */
-}
 
 .dropdown-open.dropdown-container .dropdown-menu ul{
     transform: translateY(0);
